@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"/>
+
+	<title>
+		web gallery
+	</title>
+</head>
+<body class="m-5">
+	<div class="container">
+
+	  <div class="row">
+
+	    <div class="col-md-3">
+	      
+	      <div class="card">
+			<div class="card-header">
+			    ALBUMS
+			</div>
+			<ul class="list-group list-group-flush">
+			  	<li class="list-group-item"><a href="{% url 'home' %}">All</a></li>
+
+			  	{% for album in albums %}
+			  		<li class="list-group-item">
+			  			<a href="{% url 'home' %}?album={{ album.name }}">{{ album.name }}
+			  			</a>
+			  		</li>
+			  	{% endfor %}
+
+			    <li class="list-group-item">
+			    	<a class="btn btn-secondary btn-md btn-block" href="{% url 'addpic' %}">Add Picture</a>
+			    </li>
+			</ul>
+		  </div>
+
+	    </div>
+
+	    <div class="col-md-9">
+	      
+	      <div class="row">
+	      	
+	      	{% for picture in pictures %}
+
+	      	<div class="col-md-4">
+	      		
+	      		<div class="card my-3">
+				  <img class="thumbnaill" src="{{ picture.image.url }}" alt="Card image cap">
+				  <div class="card-body">
+				    <p class="card-text">Album: {{picture.album.name}}</p>
+				    <a href="{% url 'viewpic' picture.id %}" class="btn btn-primary btn-md btn-block">View</a>
+				  </div>
+				</div>
+
+	      	</div>
+
+	      	{% endfor %}
+
+	      </div>
+
+	    </div>
+
+	  </div>
+
+	</div>
+</body>
+</html>
